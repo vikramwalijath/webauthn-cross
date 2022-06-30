@@ -16,7 +16,7 @@
  */
 export const _fetch = async (path, payload = '') => {
   const headers = {
-    'X-Requested-With': 'XMLHttpRequest',
+   // 'X-Requested-With': 'XMLHttpRequest',
   };
   if (payload && !(payload instanceof FormData)) {
     headers['Content-Type'] = 'application/json';
@@ -25,7 +25,7 @@ export const _fetch = async (path, payload = '') => {
   console.log('path',path);
   const res = await fetch('https://vviws-webauthn-node.herokuapp.com/'+path, {
     method: 'POST',
-   // credentials: 'same-origin',
+   credentials: 'cors-origin',
     headers: headers,
     body: payload,
   });
