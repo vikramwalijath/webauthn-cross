@@ -22,9 +22,9 @@ export const _fetch = async (path, payload = '') => {
     headers['Content-Type'] = 'application/json';
     payload = JSON.stringify(payload);
   }
-  const res = await fetch(path, {
+  const res = await fetch('https://vviws-webauthn-node.herokuapp.com'+path, {
     method: 'POST',
-    credentials: 'same-origin',
+   // credentials: 'same-origin',
     headers: headers,
     body: payload,
   });
