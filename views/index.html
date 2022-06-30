@@ -49,6 +49,7 @@
         import { _fetch } from '/client.js';
         const form = document.querySelector('#form');
         form.addEventListener('submit', e => {
+          console.log(e.target.action)
           e.preventDefault();
           const form = new FormData(e.target);
           const cred = {};
