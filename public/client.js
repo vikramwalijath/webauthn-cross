@@ -24,7 +24,7 @@ export const _fetch = async (path, payload = '') => {
   }
   const res = await fetch(path, {
     method: 'POST',
-    credentials: 'same-origin',
+    // credentials: 'same-origin',
     headers: headers,
     body: payload,
   });
