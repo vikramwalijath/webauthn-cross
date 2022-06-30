@@ -16,16 +16,15 @@
  */
 export const _fetch = async (path, payload = '') => {
   const headers = {
-   'X-Requested-With': 'XMLHttpRequest',
+    'X-Requested-With': 'XMLHttpRequest',
   };
   if (payload && !(payload instanceof FormData)) {
     headers['Content-Type'] = 'application/json';
     payload = JSON.stringify(payload);
   }
-  console.log('path',path);
-  const res = await fetch('https://vviws-webauthn-node.herokuapp.com/'+path, {
+  const res = await fetch(path, {
     method: 'POST',
-   credentials: 'cors-origin',
+    credentials: 'same-origin',
     headers: headers,
     body: payload,
   });
