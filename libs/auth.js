@@ -96,8 +96,8 @@ router.post('/username', (req, res) => {
       db.get('users').push(user).write();
     }
     // Set username in the session
-    req.session.username = username;
-    console.log(req.session)
+   // req.session.username = username;
+   // console.log(req.session)
     // If sign-in succeeded, redirect to `/home`.
     res.json(user);
   }
