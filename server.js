@@ -22,9 +22,9 @@ const hbs = require('hbs');
 const auth = require('./libs/auth');
 const app = express();
 
-app.set('view engine', 'html');
-app.engine('html', hbs.__express);
-app.set('views', './views');
+// app.set('view engine', 'html');
+// app.engine('html', hbs.__express);
+// app.set('views', './views');
 app.use(express.json());
 app.use(express.static('public'));
 app.use(express.static('dist'));
@@ -59,7 +59,7 @@ app.use((req, res, next) => {
 });
 
 // http://expressjs.com/en/starter/basic-routing.html
-app.get('/', (req, res) => {
+/*app.get('/', (req, res) => {
   // Check session
   if (req.session.username) {
     // If user is signed in, redirect to `/reauth`.
@@ -117,7 +117,12 @@ app.get('/.well-known/assetlinks.json', (req, res) => {
   }
   res.json(assetlinks);
 });
-
+*/
+app.get("/", (req, res) => {
+  res
+    .status(200)
+    .json(success("OK", { data: "Some random data" }, res.statusCode));
+});
 app.use('/auth', auth);
 
 // listen for req :)
