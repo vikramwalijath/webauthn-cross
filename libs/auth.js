@@ -314,9 +314,9 @@ router.post('/registerRequest', async (req, res) => {
      }
  * }```
  **/
-router.post('/registerResponse', csrfCheck, sessionCheck, async (req, res) => {
-  const username = req.session.username;
-  const expectedChallenge = req.session.challenge;
+router.post('/registerResponse', async (req, res) => {
+  const username = req.body.username;
+  const expectedChallenge = req.body.challenge;
   console.log('expectedChallenge',expectedChallenge)
   const expectedOrigin = getOrigin(req.get('User-Agent'));
   const expectedRPID = 'vviws-cross-pltaform.herokuapp.com';// process.env.HOSTNAME;
@@ -384,11 +384,12 @@ router.post('/registerResponse', csrfCheck, sessionCheck, async (req, res) => {
      }, ...]
  * }```
  **/
-router.post('/signinRequest', csrfCheck, async (req, res) => {
+router.post('/signinRequest',  async (req, res) => {
   try {
+    const username = req.body.username;
     const user = db
       .get('users')
-      .find({ username: req.session.username })
+      .find({ username: username })
       .value();
 
     if (!user) {
@@ -397,7 +398,7 @@ router.post('/signinRequest', csrfCheck, async (req, res) => {
       return;
     }
 
-    const credId = req.query.credId;
+    const credId = req.body.credId;
 
     const userVerification = req.body.userVerification || 'preferred';
 
@@ -446,14 +447,14 @@ router.post('/signinRequest', csrfCheck, async (req, res) => {
      }
  * }```
  **/
-router.post('/signinResponse', csrfCheck, async (req, res) => {
+router.post('/signinResponse',  async (req, res) => {
   const { body } = req;
-  const expectedChallenge = req.session.challenge;
+  const expectedChallenge = req.body.challenge;
   const expectedOrigin = getOrigin(req.get('User-Agent'));
   const expectedRPID = 'vviws-cross-pltaform.herokuapp.com';//process.env.HOSTNAME;
 
   // Query the user
-  const user = db.get('users').find({ username: req.session.username }).value();
+  const user = db.get('users').find({ username: req.body.username }).value();
 
   let credential = user.credentials.find((cred) => cred.credId === req.body.id);
 
@@ -478,7 +479,7 @@ router.post('/signinResponse', csrfCheck, async (req, res) => {
 
     credential.prevCounter = authenticatorInfo.counter;
 
-    db.get('users').find({ username: req.session.username }).assign(user).write();
+    db.get('users').find({ username: req.body.username }).assign(user).write();
 
     delete req.session.challenge;
     req.session['signed-in'] = 'yes';
