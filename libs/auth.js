@@ -85,7 +85,7 @@ router.post('/username', (req, res) => {
     return;
   } else {
     // See if account already exists
-    let user = db.get('users').find({ username: username }).value();
+    let user = db.get('users').find({ username: username, 'signIn':'yes' }).value();
     // If user entry is not created yet, create one
     if (!user) {
       user = {
@@ -151,9 +151,16 @@ router.get('/signout', (req, res) => {
  };
  ```
  **/
-router.post('/getKeys', csrfCheck, sessionCheck, (req, res) => {
-  const user = db.get('users').find({ username: req.session.username }).value();
-  res.json(user || {});
+router.post('/getKeys',  (req, res) => {
+   const username = req.body.username;
+  //  const signIn = req.body.signIn;
+   if (!username || !/[a-zA-Z0-9-_]+/.test(username)) {
+    res.status(400).send({ error: 'Bad request' });
+    return;
+  } else {
+    const user = db.get('users').find({ username:username }).value();
+    res.json(user || {});
+  }
 });
 
 /**
