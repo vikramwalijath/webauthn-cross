@@ -123,7 +123,7 @@ app.get("/", (req, res) => {
     .status(200)
     .json({ data: "Some random data" });
 });
-app.get("/username", (req, res) => {
+app.post("/username", (req, res) => {
    const username = req.body.username;
    if (!username || !/[a-zA-Z0-9-_]+/.test(username)) {
     res.status(400).send({ error: 'Bad request' });
