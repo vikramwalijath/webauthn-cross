@@ -40,7 +40,7 @@ app.use(session({
   }
 }));
 
-app.use((req, res, next) => {
+/*app.use((req, res, next) => {
   if (process.env.PROJECT_DOMAIN) {
     process.env.HOSTNAME = `vviws-cross-pltaform.herokuapp.com`;
   } else {
