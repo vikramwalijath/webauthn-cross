@@ -223,8 +223,8 @@ router.get('/resetDB', (req, res) => {
      attestation: ('none'|'indirect'|'direct')
  * }```
  **/
-router.post('/registerRequest', csrfCheck, sessionCheck, async (req, res) => {
-  const username = req.session.username;
+router.post('/registerRequest', async (req, res) => {
+  const username = req.body.username;
   const user = db.get('users').find({ username: username }).value();
   try {
     const excludeCredentials = [];
