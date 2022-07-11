@@ -121,7 +121,7 @@ app.get('/.well-known/assetlinks.json', (req, res) => {
 app.get("/", (req, res) => {
   res
     .status(200)
-    .json(success("OK", { data: "Some random data" }, res.statusCode));
+    .json({ data: "Some random data" });
 });
 app.use('/auth', auth);
 
