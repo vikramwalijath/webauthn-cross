@@ -21,7 +21,6 @@ const session = require('express-session');
 const hbs = require('hbs');
 const auth = require('./libs/auth');
 const app = express();
-const cors = require("cors");
 
 // app.set('view engine', 'html');
 // app.engine('html', hbs.__express);
@@ -40,19 +39,7 @@ app.use(session({
     maxAge:null
   }
 }));
-const corsOpts = {
-  origin: '*',
 
-  methods: [
-    'GET',
-    'POST',
-  ],
-
-  allowedHeaders: [
-    'Content-Type',
-  ],
-};
-app.use(cors());
 /*app.use((req, res, next) => {
   if (process.env.PROJECT_DOMAIN) {
     process.env.HOSTNAME = `vviws-cross-pltaform.herokuapp.com`;
