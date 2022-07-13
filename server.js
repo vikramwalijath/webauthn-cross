@@ -20,8 +20,9 @@ const express = require('express');
 const session = require('express-session');
 const hbs = require('hbs');
 const auth = require('./libs/auth');
+var cors = require('cors')
 const app = express();
-
+app.use(cors())
 // app.set('view engine', 'html');
 // app.engine('html', hbs.__express);
 // app.set('views', './views');
@@ -121,7 +122,7 @@ app.get('/.well-known/assetlinks.json', (req, res) => {
 app.get("/", (req, res) => {
   res
     .status(200)
-    .json({ data: "Some random data" });
+    .json({ data: "This is CORS-enabled for all origins!" });
 });
 app.post("/username", (req, res) => {
    const username = req.body.username;
