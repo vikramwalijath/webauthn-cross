@@ -273,7 +273,7 @@ router.post('/registerRequest', async (req, res) => {
     console.log(process.env.HOSTNAME)
     const options = fido2.generateAttestationOptions({
       rpName: RP_NAME,
-      rpID: 'vviws-cross-pltaform.herokuapp.com',
+      rpID: 'localhost',
       userID: user.id,
       userName: user.username,
       timeout: TIMEOUT,
@@ -319,7 +319,7 @@ router.post('/registerResponse', async (req, res) => {
   const expectedChallenge = req.body.challenge;
   console.log('expectedChallenge',expectedChallenge)
   const expectedOrigin = getOrigin(req.get('User-Agent'));
-  const expectedRPID = 'vviws-cross-pltaform.herokuapp.com';// process.env.HOSTNAME;
+  const expectedRPID = 'localhost';// process.env.HOSTNAME;
   const credId = req.body.id;
   const type = req.body.type;
 
@@ -416,7 +416,7 @@ router.post('/signinRequest',  async (req, res) => {
 
     const options = fido2.generateAssertionOptions({
       timeout: TIMEOUT,
-      rpID: 'vviws-cross-pltaform.herokuapp.com',
+      rpID: 'localhost',
       allowCredentials,
       /**
        * This optional value controls whether or not the authenticator needs be able to uniquely
@@ -451,7 +451,7 @@ router.post('/signinResponse',  async (req, res) => {
   const { body } = req;
   const expectedChallenge = req.body.challenge;
   const expectedOrigin = getOrigin(req.get('User-Agent'));
-  const expectedRPID = 'vviws-cross-pltaform.herokuapp.com';//process.env.HOSTNAME;
+  const expectedRPID = 'localhost';//process.env.HOSTNAME;
 
   // Query the user
   const user = db.get('users').find({ username: req.body.username }).value();
